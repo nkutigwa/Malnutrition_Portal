@@ -125,7 +125,7 @@ class _OverviewPageState extends State<OverviewPage> {
 
     ///Second Way
     final Stream<QuerySnapshot> _stream =
-        FirebaseFirestore.instance.collection('Result').snapshots();
+        FirebaseFirestore.instance.collection('docs').snapshots();
 
     int noOfUnderweight = 0;
 
@@ -174,14 +174,14 @@ class _OverviewPageState extends State<OverviewPage> {
             return Text("Loading");
           }
 
-          List<QueryDocumentSnapshot> Result = snapshot.data.docs;
+          List<QueryDocumentSnapshot> docs = snapshot.data.docs;
 
           LinkedHashSet schools = new LinkedHashSet(); //Set of Schools
           LinkedHashSet regions = new LinkedHashSet(); //Set of Regions
           LinkedHashSet districts = new LinkedHashSet(); //Set of Districts
 
-          totalNoOfStudents = Result.length;
-          for (var doc in Result) {
+          totalNoOfStudents = docs.length;
+          for (var doc in docs) {
             if (doc.data() != null) {
               var data = doc.data() as Map<String, dynamic>;
 
