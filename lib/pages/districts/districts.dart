@@ -112,7 +112,7 @@ class _DistrictsPageState extends State<DistrictsPage> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _stream = FirebaseFirestore.instance
-        .collection('Result')
+        .collection('docs')
         .where("district", isEqualTo: widget.districtName ?? selectedDistrict)
         .snapshots();
     int noOfUnderweight = 0;
@@ -162,13 +162,13 @@ class _DistrictsPageState extends State<DistrictsPage> {
             return Text("Loading");
           }
 
-          List<QueryDocumentSnapshot> Result = snapshot.data.docs;
+          List<QueryDocumentSnapshot> docs = snapshot.data.docs;
 
           LinkedHashSet schools = new LinkedHashSet(); //Set of Schools
 //Set of Districts
 
-          totalNoOfStudents = Result.length;
-          for (var doc in Result) {
+          totalNoOfStudents = docs.length;
+          for (var doc in docs) {
             if (doc.data() != null) {
               var data = doc.data() as Map<String, dynamic>;
 
