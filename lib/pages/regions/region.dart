@@ -105,7 +105,7 @@ class _RegionPageState extends State<RegionPage> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _stream = FirebaseFirestore.instance
-        .collection('Result')
+        .collection('docs')
         .where("region", isEqualTo: widget.regionName ?? selectedRegion)
         .snapshots();
     int noOfUnderweight = 0;
@@ -155,12 +155,12 @@ class _RegionPageState extends State<RegionPage> {
             return Text("Loading");
           }
 
-          List<QueryDocumentSnapshot> Result = snapshot.data.docs;
+          List<QueryDocumentSnapshot> docs = snapshot.data.docs;
 
           LinkedHashSet schools = new LinkedHashSet(); //Set of Schools
 
-          totalNoOfStudents = Result.length;
-          for (var doc in Result) {
+          totalNoOfStudents = docs.length;
+          for (var doc in docs) {
             if (doc.data() != null) {
               var data = doc.data() as Map<String, dynamic>;
 
